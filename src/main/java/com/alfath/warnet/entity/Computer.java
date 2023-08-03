@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,8 +16,9 @@ import javax.persistence.*;
 @Table(name = "m_comouter")
 public class Computer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(strategy = "uuid2", name = "system-uuid")
+    @GeneratedValue(generator = "system-uuid")
+    private String id;
 
     @Column(name = "pc_name")
     private String computerName;

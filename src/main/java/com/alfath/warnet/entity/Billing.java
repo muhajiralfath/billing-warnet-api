@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -18,8 +19,9 @@ import java.util.Date;
 @Table(name = "t_billing")
 public class Billing {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(strategy = "uuid2", name = "system-uuid")
+    @GeneratedValue(generator = "system-uuid")
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

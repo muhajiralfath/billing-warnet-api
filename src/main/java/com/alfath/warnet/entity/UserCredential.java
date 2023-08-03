@@ -3,6 +3,7 @@ package com.alfath.warnet.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,8 +15,9 @@ import java.util.List;
 @Table(name = "m_user_credential")
 public class UserCredential {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(strategy = "uuid2", name = "system-uuid")
+    @GeneratedValue(generator = "system-uuid")
+    private String id;
 
     @Column(name = "username", unique = true)
     private String username;
