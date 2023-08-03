@@ -20,8 +20,8 @@ public class Customer {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
 
     @OneToOne
     @JoinColumn(name = "user_credential_id")

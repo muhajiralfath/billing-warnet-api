@@ -20,9 +20,9 @@ public class Computer {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @Column(name = "pc_name")
-    private String computerName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "price_perhours")
-    private Long pricePerHour;
+    @Column(name = "price")
+    private Long price;
 }

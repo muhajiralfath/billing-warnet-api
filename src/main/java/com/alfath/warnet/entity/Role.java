@@ -2,6 +2,7 @@ package com.alfath.warnet.entity;
 
 import com.alfath.warnet.entity.constant.ERole;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder(toBuilder = true)
 @Table(name = "m_role")
 public class Role {
     @Id
