@@ -108,8 +108,8 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public void setBillingOffbyPcId(String pcId) {
         Billing billing = findByIdAndUsedTrueOrThrowNotFound(pcId);
-        billing.setIsUsed(true);
-        billingRepository.saveAndFlush(billing);
+        billing.setIsUsed(false);
+        billingRepository.save(billing);
 
     }
 
