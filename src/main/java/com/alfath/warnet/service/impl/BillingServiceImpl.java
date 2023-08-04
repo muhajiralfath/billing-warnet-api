@@ -26,6 +26,7 @@ import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,8 +40,16 @@ public class BillingServiceImpl implements BillingService {
     @PrePersist
     @Override
     public BillingResponse create(BillingRequest request) {
-        Customer customerFound = customerService.getCustomerById(request.getComputerId());
+        Customer customerFound = customerService.getCustomerById(request.getCustomerId());
         Computer computerFound = computerService.getCompById(request.getComputerId());
+
+        // validasi apakah comp digunakan atau tidak
+        Billing computerUsed = findByComputerIdAndUsedTrue(request.getComputerId());
+
+        if (computerUsed != null){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Computer is Used");
+        }
+
         long startBilling = System.currentTimeMillis() / 1000;
         long endTime = startBilling + request.getRentalMinutes() * 60;
 
@@ -60,7 +69,7 @@ public class BillingServiceImpl implements BillingService {
 
         ReportData reportData = ReportData.builder()
                 .customerName(customerFound.getName())
-                .customerName(computerFound.getName())
+                .computerName(computerFound.getName())
                 .rentalTime(billing.getRentalMinutes())
                 .total_price(computerFound.getPrice() * billing.getRentalMinutes() / 60)
                 .createAt(billing.getStartAt())
@@ -68,6 +77,7 @@ public class BillingServiceImpl implements BillingService {
         reportDataService.create(reportData);
 
         return BillingResponse.builder()
+                .id(billing.getId())
                 .username(customerFound.getUsername())
                 .customerName(customerFound.getName())
                 .computerName(computerFound.getName())
@@ -126,6 +136,10 @@ public class BillingServiceImpl implements BillingService {
 
     private Billing findByIdAndUsedTrueOrThrowNotFound(String id) {
         return billingRepository.findByIdAndIsUsedTrue(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Billing not found"));
+    }
+    private Billing findByComputerIdAndUsedTrue(String id) {
+        Optional<Billing> billing = billingRepository.findByComputerIdAndIsUsedTrue(id);
+        return billing.orElse(null);
     }
 
 }

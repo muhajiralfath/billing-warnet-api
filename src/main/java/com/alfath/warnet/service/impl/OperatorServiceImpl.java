@@ -1,6 +1,7 @@
 package com.alfath.warnet.service.impl;
 
 import com.alfath.warnet.entity.Operator;
+import com.alfath.warnet.model.request.OperatorRequest;
 import com.alfath.warnet.repository.OperatorRepository;
 import com.alfath.warnet.service.OperatorService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class OperatorServiceImpl implements OperatorService {
     private final OperatorRepository operatorRepository;
     @Override
-    public Operator create(Operator operator) {
+    public Operator create(OperatorRequest request) {
         try {
+            Operator operator = Operator.builder()
+                    .username(request.getUsername())
+                    .name(request.getName())
+                    .telepon(request.getTelepon())
+                    .build();
             return operatorRepository.save(operator);
         } catch (DataIntegrityViolationException exception) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "username already exist");

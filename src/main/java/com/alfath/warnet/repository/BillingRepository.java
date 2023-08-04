@@ -22,6 +22,8 @@ public interface BillingRepository extends JpaRepository<Billing, String> {
     @Query(value = "SELECT * FROM t_billing WHERE end_at < :timestamp", nativeQuery = true)
     List<Billing> findAllByEndAtLessThan(Timestamp timestamp);
 
+    Optional<Billing> findByComputerIdAndIsUsedTrue(String id);
+
     //    @Query(value = "SELECT * FROM t_billing WHERE is_used = true AND start_billing < :epochTime", nativeQuery = true)
 //    List<Billing> findUsedBillingsLessThanEpochTime(Timestamp epochTime);
 

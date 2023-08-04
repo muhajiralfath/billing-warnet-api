@@ -23,7 +23,7 @@ public class ReportData {
     @Column(name = "customer")
     private String customerName;
     @Column(name = "computer")
-    private String ComputerName;
+    private String computerName;
     @Column(name = "rental_time")
     private Long rentalTime;
     @Column(name = "total_price")
