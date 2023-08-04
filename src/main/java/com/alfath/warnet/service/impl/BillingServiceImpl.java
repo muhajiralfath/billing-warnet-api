@@ -50,15 +50,13 @@ public class BillingServiceImpl implements BillingService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Computer is Used");
         }
 
-        long startBilling = System.currentTimeMillis() / 1000;
-        long endTime = startBilling + request.getRentalMinutes() * 60;
+//        long startBilling = System.currentTimeMillis() / 1000;
+//        long endTime = startBilling + request.getRentalMinutes() * 60;
 
         Billing billing = Billing.builder()
                 .customer(customerFound)
                 .computer(computerFound)
                 .rentalMinutes(request.getRentalMinutes())
-                .start(startBilling)
-                .end(endTime)
                 .isUsed(true)
                 .startAt(new Timestamp(System.currentTimeMillis()))
                 .endAt(new Timestamp(System.currentTimeMillis() + request.getRentalMinutes() * 60_000))
@@ -83,6 +81,8 @@ public class BillingServiceImpl implements BillingService {
                 .computerName(computerFound.getName())
                 .minutes(request.getRentalMinutes())
                 .isUsed(billing.getIsUsed())
+                .startAt(billing.getStartAt())
+                .EndAt(billing.getEndAt())
                 .build();
     }
 
@@ -99,6 +99,8 @@ public class BillingServiceImpl implements BillingService {
                 .computerName(billing.getComputer().getName())
                 .minutes(billing.getRentalMinutes())
                 .isUsed(billing.getIsUsed())
+                .startAt(billing.getStartAt())
+                .EndAt(billing.getEndAt())
                 .build()).collect(Collectors.toList());
 
         return new PageImpl<>(billingResponses, pageable, billings.getTotalElements());
@@ -121,13 +123,9 @@ public class BillingServiceImpl implements BillingService {
 
 
     // Method berjalan terus dan otomatis update data billing
-
     @Scheduled(cron = "*/1 * * * * *") // Cron expression for running every second
     public void updateIsUsedBasedOnTime() {
-//        long currentEpochTime = System.currentTimeMillis() / 1000; // Convert current time to epoch time in seconds
         List<Billing> usedBillings = billingRepository.findAllByEndAtLessThan(new Timestamp(System.currentTimeMillis()));
-//        List<String> usedBillingIds = usedBillings.stream().map(Billing::getId).collect(Collectors.toList());
-//        billingRepository.updateIsUsedField(usedBillingIds, false);
         usedBillings.forEach(billing -> {
             billing.setIsUsed(false);
             billingRepository.save(billing);

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +18,6 @@ public class BillingResponse {
     private String computerName;
     private Long minutes;
     private Boolean isUsed;
+    private Timestamp startAt;
+    private Timestamp EndAt;
 }

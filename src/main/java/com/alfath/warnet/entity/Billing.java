@@ -38,12 +38,6 @@ public class Billing {
     @Column(name = "rental_minutes")
     private Long rentalMinutes;
 
-    @Column(name = "start_billing")
-    private Long start;
-
-    @Column(name = "end_billing")
-    private Long end;
-
     @Column(name = "is_used")
     private Boolean isUsed;
 
