@@ -1,6 +1,7 @@
 package com.alfath.warnet.service.impl;
 
 import com.alfath.warnet.entity.Computer;
+import com.alfath.warnet.model.request.ComputerRequest;
 import com.alfath.warnet.model.response.ComputerResponse;
 import com.alfath.warnet.repository.ComputerRepository;
 import com.alfath.warnet.service.ComputerService;
@@ -23,8 +24,12 @@ import java.util.stream.Collectors;
 public class ComputerServiceImpl implements ComputerService {
     private final ComputerRepository computerRepository;
     @Override
-    public Computer createPc(Computer computer) {
+    public Computer createPc(ComputerRequest request) {
         try {
+            Computer computer = Computer.builder()
+                    .name(request.getName())
+                    .price(request.getPrice())
+                    .build();
             return computerRepository.save(computer);
         } catch (DataIntegrityViolationException exception) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "computer already exist");
@@ -44,6 +49,7 @@ public class ComputerServiceImpl implements ComputerService {
 
         List<Computer> computerList = new ArrayList<>(computers.getContent());
         List<ComputerResponse> computerResponseList = computerList.stream().map(computer -> ComputerResponse.builder()
+                .id(computer.getId())
                 .computerName(computer.getName())
                 .pricePerHour(computer.getPrice())
                 .build()).collect(Collectors.toList());

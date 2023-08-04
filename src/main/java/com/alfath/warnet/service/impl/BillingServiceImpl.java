@@ -68,6 +68,7 @@ public class BillingServiceImpl implements BillingService {
         reportDataService.create(reportData);
 
         return BillingResponse.builder()
+                .username(customerFound.getUsername())
                 .customerName(customerFound.getName())
                 .computerName(computerFound.getName())
                 .minutes(request.getRentalMinutes())

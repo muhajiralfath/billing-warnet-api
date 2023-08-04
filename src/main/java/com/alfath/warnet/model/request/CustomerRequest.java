@@ -1,4 +1,4 @@
-package com.alfath.warnet.model.response;
+package com.alfath.warnet.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class ComputerResponse {
-    private String id;
-    private String computerName;
-    private Long pricePerHour;
-
+public class CustomerRequest {
+    private String username;
+    private String name;
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class BillingResponse {
     private String id;
+    private String username;
     private String customerName;
     private String computerName;
     private Long minutes;

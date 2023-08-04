@@ -1,6 +1,7 @@
 package com.alfath.warnet.controller;
 
 import com.alfath.warnet.entity.Computer;
+import com.alfath.warnet.model.request.ComputerRequest;
 import com.alfath.warnet.model.response.CommonResponse;
 import com.alfath.warnet.model.response.ComputerResponse;
 import com.alfath.warnet.model.response.PagingResponse;
@@ -18,7 +19,7 @@ public class ComputerController {
     private final ComputerService computerService;
 
     @PostMapping
-    public ResponseEntity<?> createComputer(@RequestBody Computer computer) {
+    public ResponseEntity<?> createComputer(@RequestBody ComputerRequest computer) {
         computerService.createPc(computer);
 
         return ResponseEntity.status(HttpStatus.OK)

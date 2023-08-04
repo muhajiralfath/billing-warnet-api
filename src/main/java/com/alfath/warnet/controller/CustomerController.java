@@ -1,6 +1,7 @@
 package com.alfath.warnet.controller;
 
 import com.alfath.warnet.entity.Customer;
+import com.alfath.warnet.model.request.CustomerRequest;
 import com.alfath.warnet.model.response.CommonResponse;
 import com.alfath.warnet.model.response.ComputerResponse;
 import com.alfath.warnet.model.response.CustomerResponse;
@@ -19,7 +20,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<?> createCustomer(@RequestBody CustomerRequest customer){
         customerService.create(customer);
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -51,7 +52,7 @@ public class CustomerController {
 
     }
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> deleteComputerById(@PathVariable(name = "id")String id){
+    public ResponseEntity<?> deleteCustomersById(@PathVariable(name = "id")String id){
         customerService.deleteCustomerById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(CommonResponse.builder()

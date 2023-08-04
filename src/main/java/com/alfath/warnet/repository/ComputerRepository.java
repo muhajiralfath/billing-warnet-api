@@ -17,6 +17,7 @@ public interface ComputerRepository extends JpaRepository<Computer, String> {
     @Query(value = "SELECT * FROM m_computer WHERE id = :id",nativeQuery = true)
     Optional<Computer> findComputerById(@Param("id")String id);
 
+    @Transactional
     @Modifying
     @Query(value = "UPDATE m_computer SET name= :name, price= :price WHERE id= :id", nativeQuery = true)
     void updateComputer(@Param("id") String id ,@Param("name")String name, @Param("price")Long price);

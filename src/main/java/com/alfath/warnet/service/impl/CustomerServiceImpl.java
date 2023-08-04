@@ -1,6 +1,7 @@
 package com.alfath.warnet.service.impl;
 
 import com.alfath.warnet.entity.Customer;
+import com.alfath.warnet.model.request.CustomerRequest;
 import com.alfath.warnet.model.response.CustomerResponse;
 import com.alfath.warnet.repository.CustomerRepository;
 import com.alfath.warnet.service.CustomerService;
@@ -23,8 +24,12 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     @Override
-    public Customer create(Customer customer) {
+    public Customer create(CustomerRequest request) {
         try {
+            Customer customer = Customer.builder()
+                    .name(request.getName())
+                    .username(request.getUsername())
+                    .build();
           return customerRepository.save(customer);
         } catch (DataIntegrityViolationException exception) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "computer already exist");
@@ -38,6 +43,8 @@ public class CustomerServiceImpl implements CustomerService {
 
         List<Customer> customerList = new ArrayList<>(customers.getContent());
         List<CustomerResponse> customerResponses = customerList.stream().map(customer -> CustomerResponse.builder()
+                .id(customer.getId())
+                .username(customer.getUsername())
                 .name(customer.getName())
                 .build()).collect(Collectors.toList());
         return new PageImpl<>(customerResponses, pageable, customers.getTotalElements());
@@ -46,12 +53,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomerById(String id) {
         getCustomerById(id);
-        customerRepository.deleteCustomerById(id);
+        customerRepository.deleteById(id);
     }
 
     @Override
     public Customer getCustomerById(String id) {
-        return customerRepository.findCustomerById(id)
+        return customerRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer not found"));
     }
 }
