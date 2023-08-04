@@ -11,8 +11,5 @@ public interface BillingService {
     void setBillingOffbyPcId(String pcId);
     void deleteBillingById(String id);
 
-    Billing getBillingById(String id);
-
-    void updateIsUsedBasedOnTime();
 
 }

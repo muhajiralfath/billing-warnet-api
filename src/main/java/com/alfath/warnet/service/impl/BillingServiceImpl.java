@@ -107,13 +107,9 @@ public class BillingServiceImpl implements BillingService {
         billingRepository.deleteById(billing.getId());
     }
 
-    @Override
-    public Billing getBillingById(String id) {
-        return billingRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Billing not found"));
-    }
 
-    @Override
+    // Method berjalan terus dan otomatis update data billing
+
     @Scheduled(cron = "*/1 * * * * *") // Cron expression for running every second
     public void updateIsUsedBasedOnTime() {
 //        long currentEpochTime = System.currentTimeMillis() / 1000; // Convert current time to epoch time in seconds
