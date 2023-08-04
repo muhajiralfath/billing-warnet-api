@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
-public class RegisterResponse {
+public class PagingResponse {
 
-    private String email;
+    private Integer currentPage;
+    private Integer totalPage;
+    private Integer size;
 
 }

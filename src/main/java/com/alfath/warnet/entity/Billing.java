@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -29,11 +30,27 @@ public class Billing {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @Column(name = "minutes")
-    private Long minutes;
+    @ManyToOne
+    @JoinColumn(name = "computer_id")
+    private Computer computer;
+
+    @Column(name = "rental_minutes")
+    private Long rentalMinutes;
+
+    @Column(name = "start")
+    private long start;
+
+    @Column(name = "end")
+    private long end;
 
     @Column(name = "is_used")
     private Boolean isUsed;
+
+    @Column(name = "start_at")
+    private Timestamp startAt;
+
+    @Column(name = "end_at")
+    private Timestamp endAt;
 
 
 }

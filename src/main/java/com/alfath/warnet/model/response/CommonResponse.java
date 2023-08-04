@@ -2,19 +2,18 @@ package com.alfath.warnet.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class LoginResponse {
+public class CommonResponse<T> {
 
-    private String email;
-    private List<String> roles;
-    private String token;
+    private Integer statusCode;
+    private String message;
+    private T data;
+    private PagingResponse paging;
 
 }

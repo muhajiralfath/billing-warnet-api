@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class BillingResponse {
     private String id;
     private String customerName;
+    private String computerName;
     private Long minutes;
     private Boolean isUsed;
 }

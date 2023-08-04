@@ -24,9 +24,11 @@ public class Operator {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @OneToOne
-    @JoinColumn(name = "user_credential_id")
-    private UserCredential userCredential;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "telepon")
+    private String telepon;
 
 
 }

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class AuthRequest {
-    private String username;
-    private String password;
-
+public class BillingRequest {
+    private String customerId;
+    private String computerId;
+    private Long rentalMinutes;
 }

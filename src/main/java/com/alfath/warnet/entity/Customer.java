@@ -23,19 +23,13 @@ public class Customer {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
+
+    @Column(name = "name", unique = false, nullable = false)
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "user_credential_id")
-    private UserCredential userCredential;
 
-    @Column(name = "create_at", updatable = false)
-    @CreatedDate
-    private Date createAt;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
 
 }
