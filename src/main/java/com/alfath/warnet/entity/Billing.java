@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -33,12 +35,5 @@ public class Billing {
     @Column(name = "is_used")
     private Boolean isUsed;
 
-    @Column(name = "create_at", updatable = false)
-    @CreatedDate
-    private Date createAt;
-
-    @Column(name = "update_at")
-    @LastModifiedDate
-    private Date updateAt;
 
 }

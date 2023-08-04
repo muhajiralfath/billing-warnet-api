@@ -5,8 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -26,4 +29,13 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "user_credential_id")
     private UserCredential userCredential;
+
+    @Column(name = "create_at", updatable = false)
+    @CreatedDate
+    private Date createAt;
+
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
+
 }
