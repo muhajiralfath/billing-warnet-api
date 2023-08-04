@@ -21,6 +21,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_billing")
 public class Billing {
+
     @Id
     @GenericGenerator(strategy = "uuid2", name = "system-uuid")
     @GeneratedValue(generator = "system-uuid")
@@ -37,11 +38,11 @@ public class Billing {
     @Column(name = "rental_minutes")
     private Long rentalMinutes;
 
-    @Column(name = "start")
-    private long start;
+    @Column(name = "start_billing")
+    private Long start;
 
-    @Column(name = "end")
-    private long end;
+    @Column(name = "end_billing")
+    private Long end;
 
     @Column(name = "is_used")
     private Boolean isUsed;

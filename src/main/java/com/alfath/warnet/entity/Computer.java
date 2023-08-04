@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(name = "m_comouter")
+@Table(name = "m_computer")
 public class Computer {
     @Id
     @GenericGenerator(strategy = "uuid2", name = "system-uuid")

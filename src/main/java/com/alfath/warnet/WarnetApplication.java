@@ -11,5 +11,4 @@ public class WarnetApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WarnetApplication.class, args);
 	}
-
 }

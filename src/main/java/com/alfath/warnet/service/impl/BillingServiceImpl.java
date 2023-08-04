@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,7 +24,6 @@ import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -96,12 +96,25 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public Billing getBillingById(String id) {
         return billingRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vendor not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Billing not found"));
+    }
+
+    @Override
+    @Scheduled(cron = "*/1 * * * * *") // Cron expression for running every second
+    public void updateIsUsedBasedOnTime() {
+//        long currentEpochTime = System.currentTimeMillis() / 1000; // Convert current time to epoch time in seconds
+        List<Billing> usedBillings = billingRepository.findAllByEndAtLessThan(new Timestamp(System.currentTimeMillis()));
+//        List<String> usedBillingIds = usedBillings.stream().map(Billing::getId).collect(Collectors.toList());
+//        billingRepository.updateIsUsedField(usedBillingIds, false);
+        usedBillings.forEach(billing -> {
+            billing.setIsUsed(false);
+            billingRepository.save(billing);
+        });
+
     }
 
     private Billing findByIdAndUsedTrueOrThrowNotFound(String id) {
-        return billingRepository.findByIdAndIsUsedTrue(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found"));
+        return billingRepository.findByIdAndIsUsedTrue(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Billing not found"));
     }
-
 
 }

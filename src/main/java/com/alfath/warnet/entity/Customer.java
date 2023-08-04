@@ -23,10 +23,10 @@ public class Customer {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "name", unique = false, nullable = false)
+    @Column(name = "name")
     private String name;
 
 

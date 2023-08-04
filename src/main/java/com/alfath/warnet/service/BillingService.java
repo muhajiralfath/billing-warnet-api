@@ -13,4 +13,6 @@ public interface BillingService {
 
     Billing getBillingById(String id);
 
+    void updateIsUsedBasedOnTime();
+
 }
