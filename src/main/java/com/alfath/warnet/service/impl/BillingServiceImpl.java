@@ -3,12 +3,14 @@ package com.alfath.warnet.service.impl;
 import com.alfath.warnet.entity.Billing;
 import com.alfath.warnet.entity.Computer;
 import com.alfath.warnet.entity.Customer;
+import com.alfath.warnet.entity.ReportData;
 import com.alfath.warnet.model.request.BillingRequest;
 import com.alfath.warnet.model.response.BillingResponse;
 import com.alfath.warnet.repository.BillingRepository;
 import com.alfath.warnet.service.BillingService;
 import com.alfath.warnet.service.ComputerService;
 import com.alfath.warnet.service.CustomerService;
+import com.alfath.warnet.service.ReportDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,6 +34,7 @@ public class BillingServiceImpl implements BillingService {
     private final BillingRepository billingRepository;
     private final ComputerService computerService;
     private final CustomerService customerService;
+    private final ReportDataService reportDataService;
     @Transactional(rollbackOn = Exception.class)
     @PrePersist
     @Override
@@ -52,6 +55,17 @@ public class BillingServiceImpl implements BillingService {
                 .endAt(new Timestamp(System.currentTimeMillis() + request.getRentalMinutes() * 60_000))
                 .build();
         billingRepository.saveAndFlush(billing);
+
+        // add data billing to report data
+
+        ReportData reportData = ReportData.builder()
+                .customerName(customerFound.getName())
+                .customerName(computerFound.getName())
+                .rentalTime(billing.getRentalMinutes())
+                .total_price(computerFound.getPrice() * billing.getRentalMinutes() / 60)
+                .createAt(billing.getStartAt())
+                .build();
+        reportDataService.create(reportData);
 
         return BillingResponse.builder()
                 .customerName(customerFound.getName())

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/computers")
 public class ComputerController {
-    private final ComputerService computerService
+    private final ComputerService computerService;
     @PostMapping
     public ResponseEntity<?> createComputer(@RequestBody Computer computer){
         computerService.createPc(computer);
@@ -28,5 +28,7 @@ public class ComputerController {
                         .build()
                 );
     }
+
+
 
 }
