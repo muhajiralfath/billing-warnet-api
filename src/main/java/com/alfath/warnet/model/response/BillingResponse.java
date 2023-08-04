@@ -1,4 +1,4 @@
-package com.alfath.warnet.model;
+package com.alfath.warnet.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class CustomerResponse {
-    private String name;
+public class BillingResponse {
+    private String id;
+    private String customerName;
+    private Long minutes;
+    private Boolean isUsed;
 }

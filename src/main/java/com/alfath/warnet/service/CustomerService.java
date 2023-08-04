@@ -1,10 +1,8 @@
 package com.alfath.warnet.service;
 
 import com.alfath.warnet.entity.Customer;
-import com.alfath.warnet.model.CustomerResponse;
+import com.alfath.warnet.model.response.CustomerResponse;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 public interface CustomerService {
     Customer create(Customer customer);

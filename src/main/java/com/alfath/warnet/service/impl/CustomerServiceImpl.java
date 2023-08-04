@@ -1,7 +1,7 @@
 package com.alfath.warnet.service.impl;
 
 import com.alfath.warnet.entity.Customer;
-import com.alfath.warnet.model.CustomerResponse;
+import com.alfath.warnet.model.response.CustomerResponse;
 import com.alfath.warnet.repository.CustomerRepository;
 import com.alfath.warnet.service.CustomerService;
 import lombok.RequiredArgsConstructor;

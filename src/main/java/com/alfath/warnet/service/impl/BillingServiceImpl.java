@@ -1,7 +1,7 @@
 package com.alfath.warnet.service.impl;
 
 import com.alfath.warnet.entity.Billing;
-import com.alfath.warnet.model.BillingResponse;
+import com.alfath.warnet.model.response.BillingResponse;
 import com.alfath.warnet.service.BillingService;
 import org.springframework.data.domain.Page;
 

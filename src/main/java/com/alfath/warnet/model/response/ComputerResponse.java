@@ -1,4 +1,4 @@
-package com.alfath.warnet.model;
+package com.alfath.warnet.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
