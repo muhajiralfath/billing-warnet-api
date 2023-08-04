@@ -94,6 +94,7 @@ public class BillingServiceImpl implements BillingService {
         List<Billing> billingList = new ArrayList<>(billings.getContent());
         List<BillingResponse> billingResponses = billingList.stream().map(billing -> BillingResponse.builder()
                 .id(billing.getId())
+                .username(billing.getCustomer().getUsername())
                 .customerName(billing.getCustomer().getName())
                 .computerName(billing.getComputer().getName())
                 .minutes(billing.getRentalMinutes())
