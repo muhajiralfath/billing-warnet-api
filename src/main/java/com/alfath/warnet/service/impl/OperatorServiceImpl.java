@@ -21,4 +21,16 @@ public class OperatorServiceImpl implements OperatorService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "username already exist");
         }
     }
+
+    @Override
+    public void deleteOperatorById(String id) {
+        getOperatorById(id);
+        operatorRepository.deleteById(id);
+    }
+
+    @Override
+    public Operator getOperatorById(String id) {
+        return operatorRepository.findOperatorById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Operator not found"));
+    }
 }
