@@ -117,7 +117,7 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public void deleteBillingById(String id) {
-        Billing billing = findByIdAndUsedTrueOrThrowNotFound(id);
+        Billing billing = billingRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Billing not found"));
         billingRepository.deleteById(billing.getId());
     }
 

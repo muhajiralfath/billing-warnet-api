@@ -70,7 +70,29 @@ server.error.include-stacktrace=never
   ```
 
 - **PUT** `/api/v1/billing/{id}` : set update data billing agar isUsed menjadi false berdasarkan
+
+    ```json
+    {
+
+        "statusCode": 200,
+        "message": "Successfully set off billing",
+        "data": null,
+        "paging": null
+    }
+    ```
+
 - **DELETE** `/api/v1/billing/{id}` : Menghapus data billing berdasarkan id
+
+    ```json
+
+    {
+        "statusCode": 200,
+        "message": "Successfully delete billing",
+        "data": null,
+        "paging": null
+    }
+    
+    ```
 
 #### Mengelola data computer
 
@@ -179,4 +201,4 @@ server.error.include-stacktrace=never
   }
   ```
 
-### <span style="color: aqua">Serta masih terdapat 2 Request Mapping End Point untuk mengelola data customer dan data operator yang ada pada project </span>
+### <span style="color: aqua">Serta masih terdapat 2  Mapping End Point untuk mengelola data customer dan data operator yang ada pada project </span>
